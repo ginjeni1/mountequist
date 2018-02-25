@@ -1,6 +1,6 @@
 import abc
 
-from mountequist.installers import WindowsWeb
+from mountequist.installers.default import get_default_installer
 from mountequist.installers.base import Installer
 
 
@@ -10,8 +10,7 @@ class Server(object):
     DEFAULT_PORT = 2525
 
     def __init__(self, mountebank_path, port=DEFAULT_PORT,
-                 config_file_name=None, local_host_only=True,
-                 installer=WindowsWeb):
+                 config_file_name=None, local_host_only=True, installer=None):
         """
         A Mountebank Server Instance
         :param mountebank_path: The Folder path of the Mountebank installation.
@@ -30,7 +29,7 @@ class Server(object):
         self.config_file_name = config_file_name
         self.local_host_only = local_host_only
         self.process = None
-        self.installer = installer
+        self.installer = installer if installer is not None else get_default_installer()
 
     @abc.abstractmethod
     def start(self):

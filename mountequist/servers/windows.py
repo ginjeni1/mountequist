@@ -1,4 +1,5 @@
 import subprocess
+
 from mountequist.servers.base import Server
 
 
@@ -47,7 +48,6 @@ class WindowsServer(Server):
             self.local_host_only)
 
         process = subprocess.Popen()
-
 
     def stop(self):
         pass
