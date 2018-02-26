@@ -1,11 +1,14 @@
 import abc
 
-from mountequist.installers.default import get_default_installer
 from mountequist.installers.base import Installer
+from mountequist.installers.default import get_default_installer
 
 
 class Server(object):
     __metaclass__ = abc.ABCMeta
+    __slots__ = (
+        "mountebank_path", "port", "config_file_name",
+        "local_host_only", "process", "installer")
 
     DEFAULT_PORT = 2525
 
