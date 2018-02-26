@@ -2,18 +2,21 @@ import abc
 
 from mountequist.installers.base import Installer
 from mountequist.installers.default import get_default_installer
+from mountequist.util import get_root_mountebank_path
 
 
 class Server(object):
     __metaclass__ = abc.ABCMeta
     __slots__ = (
         "mountebank_path", "port", "config_file_name",
-        "local_host_only", "process", "installer")
+        "local_host_only", "process", "installer",
+        "mountebank_command_path")
 
     DEFAULT_PORT = 2525
+    DEFAULT_LOCAL_HOST_ONLY = True
 
-    def __init__(self, mountebank_path, port=DEFAULT_PORT,
-                 config_file_name=None, local_host_only=True, installer=None):
+    def __init__(self, mountebank_path, port=DEFAULT_PORT, config_file_name=None,
+                 local_host_only=DEFAULT_LOCAL_HOST_ONLY, installer=None):
         """
         A Mountebank Server Instance
         :param mountebank_path: The Folder path of the Mountebank installation.
@@ -27,7 +30,8 @@ class Server(object):
         :param installer: The installer to use when install is required.
         :type installer: Installer
         """
-        self.mountebank_path = mountebank_path
+        self.mountebank_path = get_root_mountebank_path(mountebank_path)
+        self.mountebank_command_path = None
         self.port = port
         self.config_file_name = config_file_name
         self.local_host_only = local_host_only
@@ -43,9 +47,9 @@ class Server(object):
         pass
 
     @abc.abstractmethod
-    def save_config_file(self):
+    def save_config_file(self, config_file_name):
         pass
 
     @abc.abstractmethod
-    def load_config_file(self):
+    def load_config_file(self, new_config_file):
         pass

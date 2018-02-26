@@ -6,6 +6,7 @@ import pytest
 from mountequist.installers.default import get_default_installer
 from mountequist.util import get_root_mountebank_path
 from tests.defaults import DEFAULT_TEST_PATH
+from tests.helpers import TemporaryFileHandler
 
 
 @pytest.fixture(scope="session")
@@ -43,3 +44,10 @@ def mountebank_install(installer_zipfile):
     folder_path = get_root_mountebank_path(DEFAULT_TEST_PATH)
     yield folder_path
     shutil.rmtree(folder_path)
+
+
+@pytest.fixture
+def mark_for_removal():
+    temporary_file_handler = TemporaryFileHandler()
+    with temporary_file_handler:
+        yield temporary_file_handler.wrap

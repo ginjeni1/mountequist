@@ -55,3 +55,6 @@ class Http(MountebankClient):
     def __exit__(self, *args, **kwargs):
         for impostor in self.impostors:
             self.deactivate_impostor(impostor)
+
+    # TODO Currently, a client does not support Server Made Impostors
+    # TODO It should be possible to import Server impostors upon initializing the client

@@ -8,8 +8,6 @@ from mountequist import installers
 from mountequist.installers.web import NODE_FILENAME
 from mountequist.util import get_root_mountebank_path
 from tests.defaults import DEFAULT_TEST_PATH
-# noinspection PyUnresolvedReferences
-from tests.helpers import mark_for_removal
 
 windows_only = pytest.mark.skipif(sys.platform != "win32", reason="Windows Only")
 
@@ -37,7 +35,7 @@ def test_windows_can_extract(mountebank_zipfile):
 
 @windows_only
 def test_windows_can_find_exe(mountebank_install):
-    exe_path = installers.WindowsWeb._find_exe(DEFAULT_TEST_PATH)
+    exe_path = installers.WindowsWeb.find_exe(DEFAULT_TEST_PATH)
 
     assert NODE_FILENAME in exe_path
 

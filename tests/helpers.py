@@ -1,14 +1,5 @@
 import os
 
-import pytest
-
-
-@pytest.fixture
-def mark_for_removal():
-    temporary_file_handler = TemporaryFileHandler()
-    with temporary_file_handler:
-        yield temporary_file_handler.wrap
-
 
 class TemporaryFileHandler(object):
     __slots__ = ("temporary_file_path",)
@@ -25,3 +16,12 @@ class TemporaryFileHandler(object):
     def __exit__(self, *args, **kwargs):
         if self.temporary_file_path is not None:
             os.remove(self.temporary_file_path)
+
+
+def is_process_active(pid):
+    try:
+        os.kill(pid, 0)
+    except OSError:
+        return False
+
+    return True

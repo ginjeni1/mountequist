@@ -14,5 +14,9 @@ def list_or_none(value):
 
 def get_root_mountebank_path(path):
     elements = os.listdir(path)
+    if "node.exe" in elements:
+        return path
+
     folder_name = next((name for name in elements if "mountebank-v" in name))
+
     return os.path.join(path, folder_name)

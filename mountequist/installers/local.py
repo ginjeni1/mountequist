@@ -7,3 +7,6 @@ class WindowsLocal(Installer):
 
     def install(self, path):
         pass
+
+    def find_exe(self, mountebank_path):
+        pass

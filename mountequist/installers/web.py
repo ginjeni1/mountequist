@@ -19,7 +19,7 @@ class WindowsWeb(Installer):
 
     @classmethod
     def is_installed(cls, mountebank_path):
-        return cls._find_exe(mountebank_path) is not None
+        return cls.find_exe(mountebank_path) is not None
 
     def install(self, mountebank_path):
         if not os.path.exists(mountebank_path):
@@ -28,7 +28,7 @@ class WindowsWeb(Installer):
         zip_file_path = self._download(self.link, mountebank_path)
         self._extract(zip_file_path, mountebank_path)
         os.remove(zip_file_path)
-        exe_path = self._find_exe(mountebank_path)
+        exe_path = self.find_exe(mountebank_path)
         if exe_path is None:
             raise InstallError("Could not install Mountebank.")
 
@@ -56,16 +56,13 @@ class WindowsWeb(Installer):
         zip_file_path = cls._download(link, mountebank_path)
         cls._extract(zip_file_path, mountebank_path)
 
-        return cls._find_exe(mountebank_path)
+        return cls.find_exe(mountebank_path)
 
     @classmethod
-    def _find_exe(cls, mountebank_path):
+    def find_exe(cls, mountebank_path):
         elements = os.listdir(mountebank_path)
         if not elements:
             return
-
-        if NODE_FILENAME in os.listdir(mountebank_path):
-            return os.path.join(mountebank_path, NODE_FILENAME)
 
         root_path = get_root_mountebank_path(mountebank_path)
         if NODE_FILENAME in os.listdir(root_path):
