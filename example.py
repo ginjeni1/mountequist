@@ -10,4 +10,4 @@ if __name__ == '__main__':
     with servers.WindowsServer("C:\\temp\\mountebank-v1.13.0-win-x64"):
         with clients.Http("http://localhost", impostor) as client:
             result_1 = client.post_to_impostor(impostor, data="hmm")
-            print result_1.text
+            print(result_1.text)

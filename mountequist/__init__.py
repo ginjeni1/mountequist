@@ -8,3 +8,6 @@ from mountequist import (
     servers,
     stubs
 )
+
+
+__version__ = "0.1.0.0"
