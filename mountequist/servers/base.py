@@ -53,3 +53,11 @@ class Server(object):
     @abc.abstractmethod
     def load_config_file(self, new_config_file):
         pass
+
+    def __enter__(self):
+        self.start()
+
+        return self
+
+    def __exit__(self, *args, **kwargs):
+        self.stop()

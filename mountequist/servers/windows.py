@@ -140,9 +140,3 @@ class WindowsServer(Server):
             timeout -= 0.1
 
         raise exceptions.TimeoutError()
-
-    def __enter__(self):
-        self.start()
-
-    def __exit__(self, *args, **kwargs):
-        self.stop()
