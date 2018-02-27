@@ -52,6 +52,8 @@ class Http(MountebankClient):
         for impostor in self.impostors:
             self.activate_impostor(impostor)
 
+        return self
+
     def __exit__(self, *args, **kwargs):
         for impostor in self.impostors:
             self.deactivate_impostor(impostor)
