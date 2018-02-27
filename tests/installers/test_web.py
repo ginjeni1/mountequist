@@ -5,7 +5,6 @@ import zipfile
 import pytest
 
 from mountequist import installers
-from mountequist.installers.web import NODE_FILENAME
 from mountequist.util import get_root_mountebank_path
 from tests.defaults import DEFAULT_TEST_PATH
 
@@ -30,14 +29,14 @@ def test_windows_can_extract(mountebank_zipfile):
     installer._extract(mountebank_zipfile, DEFAULT_TEST_PATH)
     root_path = get_root_mountebank_path(DEFAULT_TEST_PATH)
 
-    assert NODE_FILENAME in os.listdir(root_path)
+    assert installer.NODE_FILENAME in os.listdir(root_path)
 
 
 @windows_only
 def test_windows_can_find_exe(mountebank_install):
     exe_path = installers.WindowsWeb.find_exe(DEFAULT_TEST_PATH)
 
-    assert NODE_FILENAME in exe_path
+    assert installers.WindowsWeb.NODE_FILENAME in exe_path
 
 
 @windows_only
@@ -46,7 +45,7 @@ def test_windows_can_install():
     installer.install(DEFAULT_TEST_PATH)
     root_path = get_root_mountebank_path(DEFAULT_TEST_PATH)
 
-    assert NODE_FILENAME in os.listdir(root_path)
+    assert installer.NODE_FILENAME in os.listdir(root_path)
 
 
 @windows_only

@@ -5,6 +5,9 @@ class WindowsLocal(Installer):
     def __init__(self):
         pass
 
+    def is_installed(self, mountebank_path):
+        pass
+
     def install(self, path):
         pass
 
