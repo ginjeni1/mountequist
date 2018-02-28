@@ -17,7 +17,8 @@ def installer_zipfile():
     """
     installer = get_default_installer()
     cache_path = os.path.join(DEFAULT_TEST_PATH, "CACHE")
-    os.mkdir(cache_path)
+    if not os.path.exists(cache_path):
+        os.mkdir(cache_path)
     zip_file_path = installer._download(installer.link, cache_path)
     yield zip_file_path
     os.remove(zip_file_path)
