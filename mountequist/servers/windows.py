@@ -3,7 +3,7 @@ import signal
 import subprocess
 import time
 
-from mountequist import exceptions
+from mountequist import exceptions, util
 from mountequist.servers.base import Server
 
 BIN_FILE = "mountebank/bin/mb"
@@ -36,8 +36,10 @@ class WindowsServer(Server):
     def _get_exe_path(self, mountebank_path):
         try:
             exe_path = self._find_exe(mountebank_path)
-        except WindowsError:
+        except (WindowsError, exceptions.InstallError):
             exe_path = self.installer.install(mountebank_path)
+            self.mountebank_path = util.get_root_mountebank_path(
+                os.path.split(exe_path)[0])
 
         return exe_path
 

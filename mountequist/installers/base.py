@@ -20,10 +20,6 @@ class Installer(object):
 
     @classmethod
     def find_exe(cls, mountebank_path):
-        elements = os.listdir(mountebank_path)
-        if not elements:
-            return
-
         root_path = get_root_mountebank_path(mountebank_path)
         if cls.NODE_FILENAME in os.listdir(root_path):
             return os.path.join(root_path, cls.NODE_FILENAME)

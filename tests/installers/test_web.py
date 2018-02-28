@@ -14,6 +14,7 @@ windows_only = pytest.mark.skipif(sys.platform != "win32", reason="Windows Only"
 @windows_only
 def test_windows_can_download(mark_for_removal):
     installer = installers.WindowsWeb()
+
     zip_file_path = installer._download(installer.link, DEFAULT_TEST_PATH)
 
     mark_for_removal(zip_file_path)
@@ -24,10 +25,11 @@ def test_windows_can_download(mark_for_removal):
 
 
 @windows_only
-def test_windows_can_extract(mountebank_zipfile):
+def test_windows_can_extract(mountebank_zipfile, make_temp_folder):
+    folder = make_temp_folder()
     installer = installers.WindowsWeb()
-    installer._extract(mountebank_zipfile, DEFAULT_TEST_PATH)
-    root_path = get_root_mountebank_path(DEFAULT_TEST_PATH)
+    installer._extract(mountebank_zipfile, folder)
+    root_path = get_root_mountebank_path(folder)
 
     assert installer.NODE_FILENAME in os.listdir(root_path)
 

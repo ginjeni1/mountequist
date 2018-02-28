@@ -1,6 +1,5 @@
 import os
 import shutil
-
 import pytest
 
 from mountequist.installers.default import get_default_installer
@@ -25,7 +24,7 @@ def installer_zipfile():
     os.rmdir(cache_path)
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def mountebank_zipfile(installer_zipfile):
     file_name = os.path.split(installer_zipfile)[-1]
     zip_file_path = os.path.join(DEFAULT_TEST_PATH, file_name)
@@ -52,3 +51,32 @@ def mark_for_removal():
     temporary_file_handler = TemporaryFileHandler()
     with temporary_file_handler:
         yield temporary_file_handler.wrap
+
+
+@pytest.fixture(scope="session")
+def make_temp_folder():
+    # This avoids the long path of common pytest fixture
+    created_folders = []
+
+    names = (
+        "%s%s%s%s%s" % (chr(a), chr(b), chr(c), chr(d), chr(e))
+         for a in range(65, 90)
+         for b in range(65, 90)
+         for c in range(65, 90)
+         for d in range(65, 90)
+         for e in range(65, 90))
+
+    def create_folder():
+        folder_path = ""
+        while not folder_path:
+            folder_name = next(names)
+            possible_path = os.path.join(DEFAULT_TEST_PATH, folder_name)
+            if not os.path.exists(possible_path):
+                folder_path = possible_path
+                os.mkdir(folder_path)
+
+        created_folders.append(folder_path)
+        return folder_path
+    yield create_folder
+    for folder in created_folders:
+        shutil.rmtree(folder)
