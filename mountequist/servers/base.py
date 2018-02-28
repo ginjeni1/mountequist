@@ -1,5 +1,6 @@
 import abc
 
+from mountequist.exceptions import InstallError
 from mountequist.installers.base import Installer
 from mountequist.installers.default import get_default_installer
 from mountequist.util import get_root_mountebank_path
@@ -30,7 +31,10 @@ class Server(object):
         :param installer: The installer to use when install is required.
         :type installer: Installer
         """
-        self.mountebank_path = get_root_mountebank_path(mountebank_path)
+        try:
+            self.mountebank_path = get_root_mountebank_path(mountebank_path)
+        except InstallError:
+            self.mountebank_path = mountebank_path
         self.mountebank_command_path = None
         self.port = port
         self.config_file_name = config_file_name

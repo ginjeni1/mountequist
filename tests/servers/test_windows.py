@@ -115,4 +115,3 @@ def sample_config(mark_for_removal):
     return ('{"imposters": [{"protocol": "http","port": 61486,'
             '"stubs": [{"responses": [{"is": {"body": "All Ok","headers":'
             '{"Connection": "close"},"_mode": "text","statusCode": 200}}]}]}]}')
-
