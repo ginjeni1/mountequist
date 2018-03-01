@@ -10,7 +10,7 @@ class Predicate(object):
         self.parameters = parameters
 
     def as_dict(self):
-        result = {self.operator: self.get_value_as_dict()}
+        result = {self.operator: self._get_value_for_dict()}
         if self.parameters is not None:
             parameters = [parameter.as_dict() for parameter in self.parameters]
             for parameter in parameters:
@@ -19,5 +19,5 @@ class Predicate(object):
         return result
 
     @abc.abstractmethod
-    def get_value_as_dict(self):
+    def _get_value_for_dict(self):
         pass
