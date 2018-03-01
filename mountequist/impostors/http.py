@@ -7,16 +7,17 @@ class Http(Impostor):
 
     protocol = "http"
 
-    def __init__(self, stubs, default_response=None, port=None, name=None):
+    def __init__(self, stubs=None, default_response=None, port=None, name=None):
         self.default_response = default_response
         self.port = port
         self.name = name
         self.stubs = list_or_none(stubs)
 
     def as_dict(self):
-        result = {
-            "protocol": self.protocol,
-            "stubs": [stub.as_dict() for stub in self.stubs]}
+        result = {"protocol": self.protocol}
+
+        if self.stubs:
+            result["stubs"] = [stub.as_dict() for stub in self.stubs]
 
         if self.default_response is not None:
             result["defaultResponse"] = self.default_response.as_dict()
