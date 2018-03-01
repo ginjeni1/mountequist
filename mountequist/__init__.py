@@ -1,4 +1,5 @@
 from mountequist import (
+    behaviors,
     clients,
     exceptions,
     impostors,
