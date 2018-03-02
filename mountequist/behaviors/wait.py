@@ -8,7 +8,7 @@ class Wait(Behavior):
 
     def as_dict(self):
         if isinstance(self.latency, timedelta):
-            return {"wait": self._convert_timedelta()}
+            return {"wait": int(self._convert_timedelta())}
         else:
             return {"wait": self.latency}
 

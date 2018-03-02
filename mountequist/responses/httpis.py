@@ -16,10 +16,11 @@ class HttpIs(object):
 
     def as_dict(self):
         result = {
-            "statusCode": self.status_code,
-            "headers": self.headers,
-            "body": self.body,
-            "_mode": self.mode}
+            self.response_type: {
+                "statusCode": self.status_code,
+                "headers": self.headers,
+                "body": self.body,
+                "_mode": self.mode}}
 
         if self.behaviors is not None:
             behaviors = {}
@@ -27,4 +28,4 @@ class HttpIs(object):
                 behaviors.update(behavior.as_dict())
             result["_behaviors"] = behaviors
 
-        return {self.response_type: result}
+        return result

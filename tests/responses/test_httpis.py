@@ -22,10 +22,10 @@ def test_full_response():
     assert "headers" in result["is"]
     assert "body" in result["is"]
     assert "_mode" in result["is"]
-    assert "_behaviors" in result["is"]
+    assert "_behaviors" in result
     assert result["is"]["statusCode"] == 201
     assert result["is"]["headers"] == {"test": "test"}
     assert result["is"]["body"] == {"body_test": "body_test"}
     assert result["is"]["_mode"] == "NoMode"
-    assert result["is"]["_behaviors"] == {"wait": 500}
+    assert result["_behaviors"] == {"wait": 500}
 
