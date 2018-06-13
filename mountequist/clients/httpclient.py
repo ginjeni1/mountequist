@@ -20,7 +20,6 @@ class Http(MountebankClient):
     def activate_impostor(self, impostor):
         if impostor in self.active_impostors:
             return
-
         result = requests.post(self.imposters_url, json=impostor.as_dict())
         if result.ok:
             port = result.json()["port"]
@@ -41,8 +40,12 @@ class Http(MountebankClient):
         self.post_to_impostor(impostor, **kwargs)
 
     def post_to_impostor(self, impostor, **kwargs):
-        impostor_url = "{}:{}".format(self.base_url, impostor.port)
+        impostor_url = self.get_impostor_url(impostor)
         return requests.post(impostor_url, **kwargs)
+
+    def get_impostor_url(self, impostor):
+        impostor_url = "{}:{}".format(self.base_url, impostor.port)
+        return impostor_url
 
     def get_impostor(self, impostor):
         impostor_url = "{}/{}".format(self.imposters_url, impostor.port)
