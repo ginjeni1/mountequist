@@ -9,7 +9,7 @@ class HttpIs(object):
     def __init__(self, status_code=200, headers=None,
                  body=None, mode="text", behaviors=None):
         self.status_code = status_code
-        self.headers = headers if headers is not None else {"Connection": "close"}
+        self.headers = headers if headers is not None else {'Content-Type': 'application/json', "Connection": "close"}
         self.body = body if body is not None else ""
         self.mode = mode
         self.behaviors = list_or_none(behaviors)
